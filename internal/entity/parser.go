@@ -26,7 +26,7 @@ func (p *JSONParser) DeserializeJSON(path string) (ParsedData, error) {
 	return p.Data, nil
 }
 
-func (p *JSONParser) GetKey(key string) (any, bool) {
+func (p *JSONParser) Get(key string) (any, bool) {
 	if v, ok := p.Data[key]; ok {
 		return v, true
 	} else {

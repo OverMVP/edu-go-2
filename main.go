@@ -36,7 +36,7 @@ func main() {
 		fmt.Printf(constants.TITLE_ENTER_A_KEY)
 		fmt.Scanln(&key)
 
-		if v, ok := parser.GetKey(key); !ok {
+		if v, ok := parser.Get(key); !ok {
 			fmt.Println(constants.KEY_NOT_FOUND)
 		} else {
 			fmt.Printf("%v\n", v)
