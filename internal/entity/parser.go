@@ -2,25 +2,24 @@ package entity
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 )
 
 type (
-	ParsedData map[string]any
-
 	JSONParser struct {
-		Data ParsedData
+		Data map[string]any
 	}
 )
 
-func (p *JSONParser) DeserializeJSON(path string) (ParsedData, error) {
+func (p *JSONParser) DeserializeJSON(path string) (map[string]any, error) {
 	raw, err := os.ReadFile(path)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("read file: %w", err)
 	}
 
 	if err := json.Unmarshal(raw, &p.Data); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("unmarshal json: %w", err)
 	}
 
 	return p.Data, nil

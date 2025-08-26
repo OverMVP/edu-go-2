@@ -1,8 +1,10 @@
 package constants
 
 const (
-	TOO_MANY_ARGS = "too many arguments"
-	KEY_NOT_FOUND = "key not found"
-	NO_PATH       = "not path given"
-	EXPECTED_JSON = "wrong file extension: .json expected, got %s"
+	ErrorTooManyArgs       = "too many arguments"
+	ErrorKeyNotFound       = "key not found"
+	ErrorNoPathGiven       = "not path given"
+	ErrorExpectedJSON      = "wrong file extension: .json expected, got %s"
+	ErrorFailedToUnmarshal = "failed to unmarshal json"
+	ErrorFailedToReadFile  = "failed to read file"
 )

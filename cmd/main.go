@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log/slog"
 	"os"
 	"strings"
 
@@ -12,37 +13,34 @@ import (
 
 func main() {
 	if len(os.Args) > 2 {
-		fmt.Println(constants.TOO_MANY_ARGS)
-		os.Exit(1)
+		panic(constants.ErrorTooManyArgs)
 	}
 
 	p, err := cli.GetFilePath()
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		panic(err)
 	}
 
 	parser := entity.JSONParser{}
 
 	if _, err = parser.DeserializeJSON(p); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		panic(err)
 	}
 
 	var done bool
 
 	for !done {
 		var key string
-		fmt.Printf(constants.TITLE_ENTER_A_KEY)
+		fmt.Printf(constants.MessageEnterAKey)
 		fmt.Scanln(&key)
 
 		if v, ok := parser.Get(key); !ok {
-			fmt.Println(constants.KEY_NOT_FOUND)
+			slog.Error(constants.ErrorKeyNotFound, "key", key)
 		} else {
-			fmt.Printf("%v\n", v)
+			slog.Info("value found", "key", v)
 		}
 
-		fmt.Printf(constants.TITLE_TRY_AGAIN)
+		fmt.Printf(constants.MessageTryAgain)
 
 		var answer string
 		fmt.Scanln(&answer)

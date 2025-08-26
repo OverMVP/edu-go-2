@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"path/filepath"
@@ -9,19 +8,18 @@ import (
 	"jsonparser/internal/constants"
 )
 
-func GetFilePath() (p string, e error) {
+func GetFilePath() (p string, err error) {
 	flag.StringVar(&p, "path", "", "path to a file")
 	flag.Parse()
 
 	if p == "" {
-		return p, errors.New(constants.NO_PATH)
+		return p, fmt.Errorf(constants.ErrorNoPathGiven)
 	}
 
 	extension := filepath.Ext(p)
 
-	if extension != constants.EXT_JSON {
-		fmt.Println()
-		return p, fmt.Errorf(constants.EXPECTED_JSON, extension)
+	if extension != constants.ExtensionJSON {
+		return p, fmt.Errorf(constants.ErrorExpectedJSON, extension)
 	}
 
 	return p, nil
